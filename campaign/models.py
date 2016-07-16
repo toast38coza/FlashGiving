@@ -4,7 +4,7 @@ from django.utils.text import slugify
 from django.conf import settings
 from autoslug import AutoSlugField
 
-import json
+import json, uuid
 
 class Charity(models.Model):
 
@@ -94,12 +94,26 @@ class Team(models.Model):
     campaign = models.ForeignKey(Campaign)
     name = models.CharField(max_length=30)
     slug = AutoSlugField(populate_from='name')
-    description = models.TextField(max_length=30)
-    website = models.URLField()
+    description = models.TextField(max_length=30, blank=True, null=True)
+    website = models.URLField(blank=True, null=True)
+    avatar = models.URLField(blank=True, null=True)
     
-
     class Meta:
         ordering = ["-name"]
 
     def __str__(self):              # __unicode__ on Python 2
         return self.name
+
+
+class Transaction(models.Model):
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    
+    campaign = models.ForeignKey(Campaign)
+    team = models.ForeignKey(Team, blank=True, null=True)
+    amount = models.PositiveIntegerField(default=0)
+
+
+
+
+

@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'campaign',
+
+    'rest_framework'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -122,6 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'static'
 
 
 GATEWAY_BACKENDS = [('payfast','PayFast'),]
@@ -133,5 +136,6 @@ GATEWAYS = {
 
 ### PAYFAST settings
 PAYFAST_URL = "https://sandbox.payfast.co.za/eng/process"
+#PAYFAST_URL = "https://www.payfast.co.za/eng/process"
 
 
