@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from .models import Campaign 
-
+from .models import Campaign
 
 class CampaignList(ListView):
     model = Campaign
