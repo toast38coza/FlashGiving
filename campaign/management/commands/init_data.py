@@ -1,9 +1,14 @@
 from django.core.management.base import BaseCommand, CommandError
-import csv
 from django.template.defaultfilters import slugify
+from django.conf import settings
 from campaign.models import *
 
 class Command(BaseCommand):
 
 	def handle(self, *args, **options):
-		Campaign.quick_create()
+		campaign = Campaign.quick_create()
+
+		gateway = Gateway.objects.get_or_create(name="payfast")
+
+
+	
