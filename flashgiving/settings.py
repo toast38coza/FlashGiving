@@ -123,8 +123,15 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-### PAYFAST settings
 
+GATEWAY_BACKENDS = [('payfast','PayFast'),]
+GATEWAYS = {
+    'payfast': {
+        'fields': ['recipient_email']
+    }
+}
+
+### PAYFAST settings
 PAYFAST_URL = "https://sandbox.payfast.co.za/eng/process"
 
 

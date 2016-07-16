@@ -8,7 +8,7 @@ custom:
 
 <form action="{{PAYFAST_URL}}" method="post" name="{{campaign.pk}}_{{form_name}}" >
 <input type="hidden" name="cmd" value="_paynow">
-<input type="hidden" name="receiver" value="{{campaign.charity.gateway.recipient}}">
+<input type="hidden" name="receiver" value="{{campaign.charity.gateway_properties.recipient_email}}">
 <input type="hidden" name="item_name" value="FlashGive: {{campaign.name}}">
 <input type="{{ editable|yesno:"text,hidden" }}" name="amount" value="{{amount}}">
 <input type="hidden" name="return_url" value="{{SITE.domain}}{% url 'campaign_detail' campaign.slug %}">
