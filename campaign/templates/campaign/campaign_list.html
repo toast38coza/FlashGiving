@@ -3,8 +3,13 @@
 {% block 'content' %}
 <h1>Campaigns</h1>
 
-{% for campaign in campaigns %}
-<li>{{campaign.name}}</li>
+{% for campaign in campaign_list %}
+<div class="col-md-12 jumbotron" 
+	style="background:url('http://www.gatesfoundation.org/~/media/GFO/Home/banner-1.png')">
+	
+	<h2 
+		style="background:rgba(255,255,255,0.5); padding:20px;">{{campaign.name}}</h2>
+</div>
 {% endfor %}
 
 {% endblock %}
