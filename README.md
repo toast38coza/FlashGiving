@@ -16,3 +16,22 @@ Open locally with
     http://192.168.99.100:8000/
     
 > note the ip may be different, check yours using `docker-machine ip`
+
+## Running tests: 
+
+**Running  continiously:**
+
+```
+docker-compose run --rm web sniffer
+```
+
+**Once off**
+```
+docker-compose run --rm python manage.py test
+```
+
+**Multi-environment:**
+
+```
+docker-compose run --rm tox
+```

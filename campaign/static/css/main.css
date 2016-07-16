@@ -1,0 +1,27 @@
+.transparent{
+	background:rgba(255,255,255,0.5);	
+}
+
+.campaign-list{
+	padding:0px;
+	height:400px;	
+}
+.campaign-list h2 {
+	margin:0px;
+	padding:20px;
+}
+.campaign-list .controls {
+	height: 78px;
+    margin-top: 250px;
+    padding: 20px;    
+    border-bottom:solid 2px #003366;
+
+}
+.campaign-list .info {
+	font-size: 20px;
+    padding: 20px;
+}
+.campaign-list .quick-donate {	
+	background:#f1f1f1;
+	padding-top: 10px;
+}
