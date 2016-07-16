@@ -1,5 +1,10 @@
+{% extends 'base.html' %}
+
+{% block 'content' %}
 <h1>Campaigns</h1>
 
 {% for campaign in campaigns %}
 <li>{{campaign.name}}</li>
 {% endfor %}
+
+{% endblock %}
