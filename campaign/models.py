@@ -2,7 +2,9 @@ from django.db import models
 from django.utils import timezone
 
 class Charity(models.Model):
+
     name = models.CharField(max_length=30)
+    slug = models.SlugField()
     description = models.TextField(max_length=30)
     website = models.URLField()
 
@@ -13,7 +15,9 @@ class Charity(models.Model):
         return self.name
 
 class Campaign(models.Model):
+
     name = models.CharField(max_length=30)
+    slug = models.SlugField()
     description = models.TextField(max_length=30)
     raised = models.IntegerField()
 
@@ -27,12 +31,12 @@ class Campaign(models.Model):
         return self.name
 
 class Team(models.Model):
+
     name = models.CharField(max_length=30)
-    address = models.CharField(max_length=50)
-    city = models.CharField(max_length=60)
-    state_province = models.CharField(max_length=30)
-    country = models.CharField(max_length=50)
+    slug = models.SlugField()
+    description = models.TextField(max_length=30)
     website = models.URLField()
+    
 
     class Meta:
         ordering = ["-name"]
