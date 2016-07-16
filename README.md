@@ -17,6 +17,17 @@ Open locally with
     
 > note the ip may be different, check yours using `docker-machine ip`
 
+### Testing with payment gateways
+
+Payment gateways may not like redirceting to localhost. To get around this, add a domain in your `/etc/hosts`: 
+
+```
+127.0.0.1       stage.flashgiving.co.za
+```
+
+Where 127.0.0.1 is the IP you use to test locally.
+Now you can test payment gatways e2e
+
 ## Running tests: 
 
 **Running  continiously:**

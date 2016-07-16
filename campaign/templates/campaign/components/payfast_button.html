@@ -11,7 +11,7 @@ custom:
 <input type="hidden" name="receiver" value="{{campaign.charity.gateway_properties.recipient_email}}">
 <input type="hidden" name="item_name" value="FlashGive: {{campaign.name}}">
 <input type="{{ editable|yesno:"text,hidden" }}" name="amount" value="{{amount}}">
-<input type="hidden" name="return_url" value="{{SITE.domain}}{% url 'campaign_detail' campaign.slug %}">
+<input type="hidden" name="return_url" value="http://{{SITE.domain}}{% url 'campaign_detail' campaign.slug %}">
 <input type="hidden" name="cancel_url" value="http://flashgive.co.za/cancelled">
 <button type="submit" class="btn {{btn_classes}}">Donate</button>
 </form>
