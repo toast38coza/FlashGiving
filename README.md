@@ -13,6 +13,6 @@ Everything is setup using Docker.
     
 Open locally with
 
-    http://192.168.99.100:11211/
+    http://192.168.99.100:8000/
     
 > note the ip may be different, check yours using `docker-machine ip`
