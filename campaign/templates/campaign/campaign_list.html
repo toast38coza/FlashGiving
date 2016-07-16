@@ -12,7 +12,8 @@
 		<span class='info'>R 100 000 raised so far</span>
 
 		<div class="pull-right" >
-			<button class="btn" >More Info</button>
+			<a href="{% url 'campaign_detail' campaign.slug %}" 
+				class="btn btn-default" >More Info</a>
 			<button 
 				class="btn btn-primary" 
 				data-toggle="collapse" href="#quick-donate" >Donate Now</button>
