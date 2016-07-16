@@ -30,9 +30,9 @@
 			<div class="panel panel-default">
 			  <div class="panel-heading">Quick Donate</div>
 			  <div class="panel-body">
-			    <button class="btn btn-block" >R100</button>
-			    <button class="btn btn-block" >R500</button>
-			    <button class="btn btn-block" >R1000</button>
+			  	{% include 'campaign/components/payfast_button.html' with campaign=campaign amount='100' editable=False btn_classes='btn btn-block' btn_text='R100' %}
+			    {% include 'campaign/components/payfast_button.html' with campaign=campaign amount='500' editable=False btn_classes='btn btn-block' btn_text='R500' %}
+			    {% include 'campaign/components/payfast_button.html' with campaign=campaign amount='1000' editable=False btn_classes='btn-success btn-block' btn_text='R1000' %}
 			  </div>
 			</div>
 		</div>
@@ -40,13 +40,8 @@
 			<div class="panel panel-default">
 			  <div class="panel-heading">Custom Donate</div>
 			  <div class="panel-body">
-			    <form>
-				  <div class="form-group">
-				    <label for="donation-amount">How much would you like to donate?</label>
-				    <input type="email" class="form-control" id="donation-amount" placeholder="Email">
-				  </div>	
-				  <button class="btn btn-block" >Donate</button>
-				</form>			  			    
+			      {% include 'campaign/components/payfast_button.html' with campaign=campaign amount='1000' editable=True btn_classes='btn-success btn-block' btn_text='R1000' %}
+				
 			  </div>
 			</div>
 		</div>
