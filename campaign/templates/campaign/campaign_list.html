@@ -4,6 +4,11 @@
 <h1>Campaigns</h1>
 
 {% for campaign in campaign_list %}
+
+{% comment %}
+{% include 'campaign/components/payfast_button.html' with campaign=campaign amount='123' editable=False btn_classes='btn-success btn-block' %}
+{% endcomment %}
+
 <div class="col-md-12 campaign-list" 
 	style="background:url('http://www.gatesfoundation.org/~/media/GFO/Home/banner-1.png')">	
 	<h2 class='transparent'>{{campaign.charity.name}}. <small>{{campaign.name}}</small></h2>
