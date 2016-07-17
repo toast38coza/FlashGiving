@@ -64,7 +64,11 @@ function calculate67MinSalary (form, id) {
 		var salary = form.monthlySalary.value;
 		var WORKING_DAYS = 20;
 		var HOURS_IN_A_DAY = 8;
-		var totalMinutes = (WORKING_DAYS * HOURS_IN_A_DAY * 60) / 67;
-		debugger;
-		document.getElementById('salary_to_donate_'+id).text = totalMinutes;
+		var min67Salary = ((salary / (WORKING_DAYS * HOURS_IN_A_DAY * 60)) * 67).toFixed(2);
+		var el = document.getElementById('salary_to_donate_'+id);
+		var btnEl = document.getElementById('btn_txt_salary_donate_'+id);
+		if (min67Salary > 0) {
+			el.innerHTML = min67Salary;
+			btnEl.innerHTML = min67Salary;
+		}
 }

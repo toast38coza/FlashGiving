@@ -25,15 +25,15 @@
 		    <form name="salaryDonation">
 			  <div class="form-group">
 			    <label for="donation-amount">Enter your monthly salary</label>
-			    <input type="text" class="form-control" id="donation-amount" name="monthlySalary" placeholder="Your monthly salary" on-change="calculate67MinSalary(this.form, '{{campaign.id}}')">
+			    <input type="text" class="form-control" id="donation-amount" name="monthlySalary" placeholder="Your monthly salary" onkeyup="calculate67MinSalary(this.form, '{{campaign.id}}')">
 			    <span class="info">
-			    	<strong>You earn <span id="salary_to_donate_{{campaign.id}}"></span> in 67 mins</strong>
+			    	<strong>You earn R<span id="salary_to_donate_{{campaign.id}}"></span> in 67 mins</strong>
 			    </span>
 					<script>
 
 					</script>
 			  </div>
-			  <button class="btn btn-block btn-success" >Donate R1234.00</button>
+			  <button class="btn btn-block btn-success" >Donate R<span id="btn_txt_salary_donate_{{campaign.id}}"></span></button>
 			</form>
 		  </div>
 		</div>
