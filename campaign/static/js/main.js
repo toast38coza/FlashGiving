@@ -25,7 +25,7 @@ var AjaxForm = {
 var DonateBtn = {
 
 	init: function () {
-		$(".donate-form").on('click', DonateBtn.saveTransaction);
+		$(".donate-form").on('submit', DonateBtn.saveTransaction);
 	},
 
 	saveTransaction: function (e) {
