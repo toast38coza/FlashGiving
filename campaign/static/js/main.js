@@ -1,7 +1,7 @@
 var AjaxForm = {
 
 	init : function () {
-		$("[data-form]").on('submit', function(e){
+		$("[data-form]").one('submit', function(e){
 			e.preventDefault();
 
 			var frm = $(this);
@@ -25,7 +25,7 @@ var AjaxForm = {
 var DonateBtn = {
 
 	init: function () {
-		$(".donate-form").on('click', DonateBtn.saveTransaction);
+		$(".donate-form").one('submit', DonateBtn.saveTransaction);
 	},
 
 	saveTransaction: function (e) {

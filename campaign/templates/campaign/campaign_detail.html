@@ -7,9 +7,12 @@
 {% block "page_header" %}{{campaign.charity.name}}. {{campaign.name}}{% endblock %}
 
 {% block "page_extra" %}
+{% include 'campaign/components/donate.html' with is_collapsed=True container_id='quick-donate' %}
+{% if transaction %}
 <div class='jumbotron text-center'>
 	<h1>You're Awesome. <small>Thank-you for your donation</small></h1>
 </div>
+{% endif %}
 {% endblock %}
 
 {% block 'content' %}
@@ -46,6 +49,13 @@
 			
 		</div>
 		<div class='col-md-4'>
+
+			<div class="statcard p-l-md p-r-md text-center">
+				<button 
+					data-toggle='collapse' data-target='#quick-donate'
+					class='btn btn-success btn-block'>Donate</button>
+			</div>
+
 			<div class="statcard p-a-md text-center">
 			  <h3 class="statcard-number">
 			  	{{ campaign.expiry_date|timeuntil }}</h3>

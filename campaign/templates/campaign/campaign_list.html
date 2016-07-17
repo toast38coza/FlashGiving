@@ -37,44 +37,7 @@
 		</div>
 		<div class="clearfix"></div>
 	</div>
-	<div id="quick-donate" class='quick-donate in'  >
-		<div class="col-md-4">
-			<div class="panel panel-default donate-panel">
-			  <div class="panel-heading"><h3 class="panel-title" ><em class='big'>Quick</em> Donate</h3></div>
-			  <div class="panel-body">
-			  	{% include 'campaign/components/payfast_button.html' with campaign=campaign amount='100' editable=False btn_classes='btn btn-block' btn_text='R100' %}
-			    {% include 'campaign/components/payfast_button.html' with campaign=campaign amount='500' editable=False btn_classes='btn btn-block' btn_text='R500' %}
-			    {% include 'campaign/components/payfast_button.html' with campaign=campaign amount='1000' editable=False btn_classes='btn-success btn-block' btn_text='R1000' %}
-			  </div>
-			</div>
-		</div>
-		<div class="col-md-4">
-			<div class="panel panel-default donate-panel">
-			  <div class="panel-heading"><h3 class="panel-title" ><em class='big'>Custom</em> Donate</div>
-			  <div class="panel-body">
-			      {% include 'campaign/components/payfast_button.html' with campaign=campaign amount='1000' editable=True btn_classes='btn-success btn-block' btn_text='Donate' %}
-			  </div>
-			</div>
-		</div>
-		<div class="col-md-4">
-			<div class="panel panel-default donate-panel">
-			  <div class="panel-heading"><h3 class="panel-title" >Buy <em class='big'>67 minutes</em></h3></div>
-			  <div class="panel-body">
-			    <form>
-				  <div class="form-group">
-				    <label for="donation-amount">Enter your monthly salary</label>
-				    <input type="email" class="form-control" id="donation-amount" placeholder="Email">
-				    <span class="info">
-				    	<strong>You earn R 1234.00 in 67 mins</strong>
-				    </span>
-				  </div>
-				  <button class="btn btn-block btn-success" >Donate R1234.00</button>
-				</form>
-			  </div>
-			</div>
-		</div>
-		<div class='clearfix'></div>
-	</div>
+	{% include 'campaign/components/donate.html' %}
 </div>
 {% endfor %}
 
