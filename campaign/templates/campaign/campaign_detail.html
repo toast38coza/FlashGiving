@@ -1,32 +1,74 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load bootstrap3 %}
+{% load humanize %}
 
-{% block "head" %}
-<link rel="stylesheet" href="{% static "css/toolkit-light.min.css" %}" >
-{% endblock %}
+
+{% block "page_header" %}{{campaign.charity.name}}. {{campaign.name}}{% endblock %}
 
 {% block 'content' %}
 <div class='col-md-12'>
-	<div class="row">	
-		<div class='col-md-7'>
-			<h3>{{campaign}}</h3>
+	<p class="lead text-center">
+		So far we've raised <em class='big'>R{{total|floatformat:2|intcomma}}</em>
+		since this campaign started <em class='big'>{{campaign.start_date|timesince}}</em> ago.<br/>
+		<em class='big'>{{ campaign.expiry_date|timeuntil }}</em> remaining
+	</p>
+	<div class="hr-divider">
+	  <h3 class="hr-divider-content hr-divider-heading">
+	    Help Promote
+	  </h3>
+	</div>
+	<p class="lead text-center m-b-lg" >
+		<small>
+			Help us promote this great cause by sharing this link with your friends:<br/>
+			<a href = "http://{{SITE.domain}}{% url 'campaign_detail' campaign.slug %}">
+				http://{{SITE.domain}}{% url 'campaign_detail' campaign.slug %}
+			</a>
+		</small>
+	</p>
+
+	<div class="row">
+
+		<div class='col-md-8'>
+
+		{% if campaign.video %}
+		<!-- 16:9 aspect ratio -->
+		<div class="embed-responsive embed-responsive-16by9">
+		  <iframe class="embed-responsive-item" src="{{campaign.video}}" frameborder="0" allowfullscreen></iframe>
+		</div>
+		{% endif %}
+			
 		</div>
 		<div class='col-md-4'>
-			<h3>Campaign Stats</h3>
+			<div class="statcard p-a-md text-center">
+			  <h3 class="statcard-number">
+			  	{{ campaign.expiry_date|timeuntil }}</h3>
+			  <span class="statcard-desc">Time Remaining</span>
+			</div>
+
+			<div class="statcard p-a-md text-center">
+			  <h3 class="statcard-number">R{{total|floatformat:2|intcomma}}</h3>
+			  <span class="statcard-desc">Total Donated</span>
+			</div>
+
+			<div class="statcard p-a-md text-center">
+			  <h3 class="statcard-number">{{donations|length}}</h3>
+			  <span class="statcard-desc">Total Donations</span>
+			</div>
+
+			<div class="statcard p-a-md text-center">
+			  <h3 class="statcard-number">R{{highest|floatformat:2|intcomma}}</h3>
+			  <span class="statcard-desc">Highest Donation</span>
+			</div>
 		</div>
 	</div>
 </div>
 
-{% for donation in donations %}
-<li>R{{donation.amount}}</li>
-{% endfor %}
-----
-{{total}}
 {% endblock %}
 
 
-{% block 'js' %}
+{% block "js" %}
+{{block.super}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js" ></script>
 <script src="{% static "js/toolkit.min.js" %}" ></script>
 {% endblock %}

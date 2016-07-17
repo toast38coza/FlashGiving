@@ -24,12 +24,13 @@
     <!--[if lt IE 9]>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.ie.min.css" />
     <![endif]-->
-    {% block 'head' %}{% endblock %}
+    <link rel="stylesheet" href="{% static "css/toolkit-light.min.css" %}" >
+    {% block "head" %}{% endblock %}
   </head>
 
   <body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top" style='min-height:60px;'>
+    <nav class="navbar navbar-inverse navbar-fixed-top" style='min-height:60px;background:#2c2c2c;'>
       <div class="container">
         <div class="navbar-header">
           
@@ -40,6 +41,8 @@
         </div>        
       </div>      
     </nav>
+
+    <h1 class='page-header'>{% block "page_header" %}{% endblock %}</h1>
 
     <div class="container"><br/><br/>
       {% block 'content' %}{% endblock %}

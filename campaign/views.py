@@ -3,7 +3,8 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormView
 from .models import Campaign, Team, Transaction
 from .forms import TeamForm
-from django.db.models import Sum
+from django.db.models import Sum, Max
+from datetime import datetime
 
 class CampaignList(ListView):
     model = Campaign
@@ -17,6 +18,7 @@ class CampaignDetail(DetailView):
 
         campaign = self.object;
         transaction_id = self.request.GET.get('tid', None)
+        transaction = None
         if transaction_id is not None:
             amount = self.request.GET.get('amt', 0)
             transaction = Transaction.objects.get(id=transaction_id)
@@ -25,12 +27,18 @@ class CampaignDetail(DetailView):
             transaction.save()
 
         donations = Transaction.objects.filter(campaign=campaign.id, status='complete')
-        total_donated = Transaction.objects.filter(campaign=campaign.id, status='complete').aggregate(Sum('amount'))
+        aggregations = Transaction.objects.filter(campaign=campaign.id, status='complete') \
+                            .aggregate(Sum('amount'), Max('amount'))
+                            
+
 
         context = super(CampaignDetail, self).get_context_data(**kwargs)
         
+        context['transaction'] = transaction
         context['donations'] = donations 
-        context['total'] = total_donated.get('amount__sum')
+        context['total'] = aggregations.get('amount__sum')
+        context['highest'] = aggregations.get('amount__max')
+        context['now'] = datetime.now()
         return context
 
 class DonationSuccess(DetailView):

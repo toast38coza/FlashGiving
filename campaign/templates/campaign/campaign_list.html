@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block "page_header" %}Currently active campaigns{% endblock %}
+
 {% block 'content' %}
 {% for campaign in campaign_list %}
 
@@ -7,7 +9,7 @@
 {% include 'campaign/components/payfast_button.html' with campaign=campaign amount='123' editable=False btn_classes='btn-success btn-block' %}
 {% endcomment %}
 
-<div class="col-md-12 campaign-list" 
+<div class="col-md-12 p-a-0 campaign-list" 
 	style="background:url('http://www.gatesfoundation.org/~/media/GFO/Home/banner-1.png')">	
 	<h2 class='transparent'>{{campaign.charity.name}}. <small>{{campaign.name}}</small></h2>
 
@@ -16,17 +18,17 @@
 
 		<div class="pull-right" >
 			<a href="{% url 'campaign_detail' campaign.slug %}" 
-				class="btn btn-default" >More Info</a>
+				class="btn btn-default btn-lg" >More Info</a>
 			<button 
-				class="btn btn-primary" 
+				class="btn btn-success btn-lg" 
 				data-toggle="collapse" href="#quick-donate" >Donate Now</button>
 		</div>
 		<div class="clearfix"></div>
 	</div>
-	<div id="quick-donate" class='quick-donate collapse'  >
+	<div id="quick-donate" class='quick-donate in'  >
 		<div class="col-md-4">
 			<div class="panel panel-default">
-			  <div class="panel-heading">Quick Donate</div>
+			  <div class="panel-heading"><h3 class="panel-title" ><em class='big'>Quick</em> Donate</h3></div>
 			  <div class="panel-body">
 			  	{% include 'campaign/components/payfast_button.html' with campaign=campaign amount='100' editable=False btn_classes='btn btn-block' btn_text='R100' %}
 			    {% include 'campaign/components/payfast_button.html' with campaign=campaign amount='500' editable=False btn_classes='btn btn-block' btn_text='R500' %}
@@ -36,7 +38,7 @@
 		</div>
 		<div class="col-md-4">
 			<div class="panel panel-default">
-			  <div class="panel-heading">Custom Donate</div>
+			  <div class="panel-heading"><h3 class="panel-title" ><em class='big'>Custom</em> Donate</div>
 			  <div class="panel-body">
 			      {% include 'campaign/components/payfast_button.html' with campaign=campaign amount='1000' editable=True btn_classes='btn-success btn-block' btn_text='R1000' %}
 				
@@ -45,7 +47,7 @@
 		</div>
 		<div class="col-md-4">
 			<div class="panel panel-default">
-			  <div class="panel-heading">Buy 67 minutes</div>
+			  <div class="panel-heading"><h3 class="panel-title" >Buy <em class='big'>67 minutes</em></h3></div>
 			  <div class="panel-body">
 			    <form>
 				  <div class="form-group">
