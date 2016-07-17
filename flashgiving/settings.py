@@ -144,3 +144,6 @@ PAYFAST_URL = "https://sandbox.payfast.co.za/eng/process"
 #PAYFAST_URL = "https://www.payfast.co.za/eng/process"
 
 
+import os
+if os.environ.get('WITH_DOCKER', False):
+    from flashgiving.docker_settings import *

@@ -13,7 +13,7 @@ services:
     volumes:
       - .:/code
     ports:
-      - "${APP_PORT}:8000"
+      - "8000:8000"
     links:
       - db
 
