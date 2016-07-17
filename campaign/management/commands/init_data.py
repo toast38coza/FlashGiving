@@ -8,7 +8,16 @@ class Command(BaseCommand):
 	def handle(self, *args, **options):
 		campaign = Campaign.quick_create()
 
-		gateway = Gateway.objects.get_or_create(name="payfast")
+		# teams:
+		red = Team()
+		red.name = "Read Team"
+		red.campaign = campaign
+		red.save()
+
+		blue = Team()
+		blue.name = "Read Team"
+		blue.campaign = campaign
+		blue.save()
 
 
 	

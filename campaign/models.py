@@ -13,6 +13,8 @@ class Charity(models.Model):
     slug = AutoSlugField(populate_from='name')
     description = models.TextField(max_length=30, blank=True, null=True)
     website = models.URLField(blank=True, null=True)
+    picture = models.URLField(blank=True, null=True)
+    video = models.URLField(blank=True, null=True)
     
     class Meta:
         ordering = ["-name"]
@@ -53,12 +55,14 @@ class Campaign(models.Model):
     slug = AutoSlugField(populate_from='name')
     charity = models.ForeignKey(Charity)
     picture = models.URLField(blank=True, null=True)
+    video = models.URLField(blank=True, null=True)
 
-    description = models.TextField(max_length=30, blank=True, null=True)
+    description = models.TextField( blank=True, null=True)
     raised = models.IntegerField(default=0)
     status = models.CharField(max_length=30, choices=CAMPAIGN_STATES, default='pending')
 
-    expiry_date = models.DateTimeField(blank=True, null=True)
+    start_date = models.DateTimeField(default=timezone.now)
+    expiry_date = models.DateTimeField(default=timezone.now)
 
     created = models.DateTimeField(default=timezone.now)
     modified = models.DateTimeField(auto_now=True)

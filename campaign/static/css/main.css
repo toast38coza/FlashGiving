@@ -6,6 +6,9 @@
 	padding:0px;
 	height:400px;	
 }
+.campaign-masthead{
+	height:400px;		
+}
 .campaign-list h2 {
 	margin:0px;
 	padding:20px;
@@ -22,6 +25,18 @@
     padding: 20px;
 }
 .campaign-list .quick-donate {	
-	background:#f1f1f1;
+	background:#2C2C2C;
 	padding-top: 10px;
 }
+
+h1.page-header{
+	background-color: #FC8A25;
+	color:#fff;
+	padding:10px;
+	font-weight: bold;
+	font-size:large;
+	padding-top:25px;
+}
+
+
+.big {font-size:larger;}
