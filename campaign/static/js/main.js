@@ -32,12 +32,13 @@ var DonateBtn = {
 
 		e.preventDefault();
 		var frm = $(this);
-		var btn = $("button[type='submit']");
+		var btn = $("button[type='submit']", frm);
 		var amount = $('[name="amount"]', frm).val()
 		
 		btn.button('loading');
 		var data = {
-			'campaign': frm.data('campaign')
+			'campaign': frm.data('campaign'),
+			'csrfmiddlewaretoken': $("[name='csrfmiddlewaretoken']", frm).val()
 		};
 		
 		$.post('/api/transactions/', data, function (data){

@@ -8,6 +8,6 @@ DATABASES = {
         'PORT': 5432,
     }
 }
-ALLOWED_HOSTS = ['.flashgive.co.za']
+ALLOWED_HOSTS = ['.flashgive.co.za', 'docker.local']
 DEBUG = False
 PAYFAST_URL = "https://www.payfast.co.za/eng/process"
