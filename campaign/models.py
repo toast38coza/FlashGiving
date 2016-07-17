@@ -73,10 +73,39 @@ class Campaign(models.Model):
         return self.name
 
     @property
+    def complete_transactions(self):
+        return Transaction.objects.filter(campaign=self, status='complete')
+    
+
+    @property
     def total_raised(self):
         # todo: cache
-        result = Transaction.objects.filter(campaign=self, status='complete').aggregate(Sum('amount'))
+        result = self.complete_transactions.aggregate(Sum('amount'))
         return result.get('amount__sum', 0)
+    
+    @property
+    def scores_by_team(self):
+        
+        return self.complete_transactions.values('team__name') \
+                        .annotate(amount = Sum('amount')) \
+                        .order_by('team')
+
+    @property
+    def scores_by_team_as_percent(self):
+
+        amounts = self.scores_by_team
+        total = self.total_raised
+
+        colors = [
+            '#d44950', # red
+            '#1bc98e', # blue
+            '#1ca8dd', # green
+        ]
+
+        return [ {"team__name": item.get('team__name'), \
+                  'percent': (item.get('amount')/float(total) * 100), \
+                  'color': colors[index]
+                  } for index, item in enumerate(amounts) ]
 
     def get_absolute_url(self):
         return reverse('campaign_detail', args=[self.pk])
