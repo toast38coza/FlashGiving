@@ -14,7 +14,7 @@
 		  <div class="panel-heading"><h3 class="panel-title" ><em class='big'>Custom</em> Donate</div>
 		  <div class="panel-body">
 		      {% include 'campaign/components/payfast_button.html' with campaign=campaign amount='1000' editable=True btn_classes='btn-success btn-block' btn_text='Donate' %}
-			
+
 		  </div>
 		</div>
 	</div>
@@ -22,15 +22,18 @@
 		<div class="panel panel-default donate-panel">
 		  <div class="panel-heading"><h3 class="panel-title" >Buy <em class='big'>67 minutes</em></h3></div>
 		  <div class="panel-body">
-		    <form>
+		    <form name="salaryDonation">
 			  <div class="form-group">
 			    <label for="donation-amount">Enter your monthly salary</label>
-			    <input type="email" class="form-control" id="donation-amount" placeholder="Email">
+			    <input type="text" class="form-control" id="donation-amount" name="monthlySalary" placeholder="Your monthly salary" onkeyup="calculate67MinSalary(this.form, '{{campaign.id}}')">
 			    <span class="info">
-			    	<strong>You earn R 1234.00 in 67 mins</strong>
+			    	<strong>You earn R<span id="salary_to_donate_{{campaign.id}}"></span> in 67 mins</strong>
 			    </span>
-			  </div>	
-			  <button class="btn btn-block btn-success" >Donate R1234.00</button>
+					<script>
+
+					</script>
+			  </div>
+			  <button class="btn btn-block btn-success" >Donate R<span id="btn_txt_salary_donate_{{campaign.id}}"></span></button>
 			</form>
 		  </div>
 		</div>
