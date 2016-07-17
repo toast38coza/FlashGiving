@@ -1,1 +1,6 @@
-countdown( new Date( {{startDate}}, {{endDate}} ) ).toString();
+<script>
+  var end_date = '{{end_date|date:"m d, o H:i"}}';
+  var result = countdown(new Date(end_date), function(ts) {
+      document.getElementById('pageTimer_{{id}}').innerHTML = ts.toHTML("strong");
+  });
+</script>
