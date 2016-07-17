@@ -3,8 +3,9 @@ from django.utils import timezone
 from django.utils.text import slugify
 from django.conf import settings
 from autoslug import AutoSlugField
-
-import json
+from django.core.urlresolvers import reverse
+from django.db.models import Sum, Max
+import json, uuid
 
 class Charity(models.Model):
 
@@ -12,6 +13,8 @@ class Charity(models.Model):
     slug = AutoSlugField(populate_from='name')
     description = models.TextField(max_length=30, blank=True, null=True)
     website = models.URLField(blank=True, null=True)
+    picture = models.URLField(blank=True, null=True)
+    video = models.URLField(blank=True, null=True)
     
     class Meta:
         ordering = ["-name"]
@@ -52,12 +55,13 @@ class Campaign(models.Model):
     slug = AutoSlugField(populate_from='name')
     charity = models.ForeignKey(Charity)
     picture = models.URLField(blank=True, null=True)
+    video = models.URLField(blank=True, null=True)
 
-    description = models.TextField(max_length=30, blank=True, null=True)
-    raised = models.IntegerField(default=0)
+    description = models.TextField( blank=True, null=True)
     status = models.CharField(max_length=30, choices=CAMPAIGN_STATES, default='pending')
 
-    expiry_date = models.DateTimeField(blank=True, null=True)
+    start_date = models.DateTimeField(default=timezone.now)
+    expiry_date = models.DateTimeField(default=timezone.now)
 
     created = models.DateTimeField(default=timezone.now)
     modified = models.DateTimeField(auto_now=True)
@@ -67,6 +71,15 @@ class Campaign(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def total_raised(self):
+        # todo: cache
+        result = Transaction.objects.filter(campaign=self, status='complete').aggregate(Sum('amount'))
+        return result.get('amount__sum', 0)
+
+    def get_absolute_url(self):
+        return reverse('campaign_detail', args=[self.pk])
 
     def get_active(self):
         return Campaign.objects.filter(status='active')
@@ -94,12 +107,27 @@ class Team(models.Model):
     campaign = models.ForeignKey(Campaign)
     name = models.CharField(max_length=30)
     slug = AutoSlugField(populate_from='name')
-    description = models.TextField(max_length=30)
-    website = models.URLField()
+    description = models.TextField(max_length=30, blank=True, null=True)
+    website = models.URLField(blank=True, null=True)
+    avatar = models.URLField(blank=True, null=True)
     
-
     class Meta:
         ordering = ["-name"]
 
     def __str__(self):              # __unicode__ on Python 2
         return self.name
+
+transaction_statuses = [('started', 'Started'), ('complete', 'Complete')]
+class Transaction(models.Model):
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    
+    campaign = models.ForeignKey(Campaign)
+    team = models.ForeignKey(Team, blank=True, null=True)
+    amount = models.PositiveIntegerField(default=0)
+    status = models.CharField(max_length=30, choices=transaction_statuses, default='started')
+
+
+
+
+

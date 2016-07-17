@@ -1,0 +1,47 @@
+- hosts: all
+
+  tasks:
+  - name: update apt cache 
+    apt: update_cache=yes cache_valid_time=3600
+
+  - name: install requirements
+    apt: pkg="{{item}}" state=installed
+    with_items:
+      - python-dev
+      - python-pip
+
+  - name: install docker compose
+    pip:
+      name: docker-compose
+      state: present
+
+  - name: Create directories
+    file:
+      path: /var/www
+      state: directory
+
+  - name: Get code
+    git:
+      repo: https://github.com/toast38coza/FlashGiving.git
+      dest: /var/www/FlashGiving
+      force: yes
+    tags: 
+       - quick
+
+  - name: Run docker commands
+    shell: "docker-compose run --rm web {{item}}"
+    args:
+      chdir: /var/www/FlashGiving
+    with_items:
+      - pip install -r requirements.txt
+      - python manage.py migrate
+      - python manage.py collectstatic --no-input
+    tags: 
+       - quick
+
+  - name: Make sure everything is up 
+    command: docker-compose up -d 
+    args:
+      chdir: /var/www/FlashGiving
+
+

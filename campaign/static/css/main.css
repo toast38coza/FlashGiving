@@ -1,10 +1,17 @@
 .transparent{
 	background:rgba(255,255,255,0.5);	
 }
+.transparent.callout{	
+	background:rgba(252,138,37,0.5);
+	color:white;	
+}
 
 .campaign-list{
 	padding:0px;
 	height:400px;	
+}
+.campaign-masthead{
+	height:400px;		
 }
 .campaign-list h2 {
 	margin:0px;
@@ -22,6 +29,31 @@
     padding: 20px;
 }
 .campaign-list .quick-donate {	
-	background:#f1f1f1;
+	background:#2C2C2C;
 	padding-top: 10px;
+}
+
+h1.page-header{
+	background-color: #FC8A25;
+	color:#fff;
+	padding:10px;
+	font-weight: bold;
+	font-size:large;
+	padding-top:25px;
+	margin-bottom: 0px;
+}
+
+.donate-panel {
+	height: 215px;
+}
+.donate-panel button{
+	margin-bottom:10px;
+}
+
+.big {font-size:larger;}
+
+* {
+  -webkit-border-radius: 0 !important;
+     -moz-border-radius: 0 !important;
+          border-radius: 0 !important;
 }

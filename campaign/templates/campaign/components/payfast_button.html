@@ -6,12 +6,24 @@ custom:
 {% include 'campaign/components/payfast_button.html' with form_name='custom' campaign=campaign amount='100' editable=True %}
 {% endcomment %}
 
-<form action="{{PAYFAST_URL}}" method="post" name="{{campaign.pk}}_{{form_name}}" >
+<form 
+	data-campaign="{{campaign.pk}}" class="donate-form"
+	action="{{PAYFAST_URL}}" method="post" name="{{campaign.pk}}_{{form_name}}" >
+{% csrf_token %}
 <input type="hidden" name="cmd" value="_paynow">
 <input type="hidden" name="receiver" value="{{campaign.charity.gateway_properties.recipient_email}}">
 <input type="hidden" name="item_name" value="FlashGive: {{campaign.name}}">
-<input type="{{ editable|yesno:"text,hidden" }}" name="amount" value="{{amount}}">
-<input type="hidden" name="return_url" value="{{SITE.domain}}{% url 'campaign_detail' campaign.slug %}">
-<input type="hidden" name="cancel_url" value="http://flashgive.co.za/cancelled">
-<button type="submit" class="btn {{btn_classes}}">Donate</button>
+{% if editable %}
+<div class="form-group">
+	<label for="donation-amount">How much would you like to donate?</label>
+	<input type="text" class="form-control" name="amount" value="{{amount}}" >	
+</div>
+{% else %}
+<input type="hidden" name="amount" value="{{amount}}">
+{% endif %}
+<input type="hidden" name="return_url" value="http://{{SITE.domain}}{% url 'campaign_detail' campaign.slug %}?tid=">
+<input type="hidden" name="cancel_url" value="http://{{SITE.domain}}{% url 'campaign_detail' campaign.slug %}">
+<button 	
+	data-loading-text='loading..'
+	type='submit' class="btn {{btn_classes}}">{{btn_text|default:"Donate"}}</button>
 </form>

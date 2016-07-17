@@ -1,3 +1,7 @@
 django
 gunicorn
 django-autoslug
+djangorestframework
+django-bootstrap3
+django-filter
+psycopg2

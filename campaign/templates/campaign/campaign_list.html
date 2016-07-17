@@ -1,57 +1,65 @@
 {% extends 'base.html' %}
+{% load humanize %}
+{% block "page_header" %}Currently active campaigns{% endblock %}
 
 {% block 'content' %}
-<h1>Campaigns</h1>
-
 {% for campaign in campaign_list %}
 
+{% comment %}
 {% include 'campaign/components/payfast_button.html' with campaign=campaign amount='123' editable=False btn_classes='btn-success btn-block' %}
+{% endcomment %}
 
 
-<div class="col-md-12 campaign-list" 
-	style="background:url('http://www.gatesfoundation.org/~/media/GFO/Home/banner-1.png')">	
-	<h2 class='transparent'>{{campaign.charity.name}}. <small>{{campaign.name}}</small></h2>
+<div class="col-md-12 p-a-0 campaign-list" 
+	style="background:url('{{campaign.picture}}')">	
 
-	<div class='controls transparent'>
-		<span class='info'>R 100 000 raised so far</span>
+	<div class="visible-sm visible-xs" >
+		<p class="lead text-center transparent">
+			<strong><em class='big'>R {{campaign.total_raised|floatformat:2|intcomma}}</em> raised so far. Campaign expires in <em class='big'>{{ campaign.expiry_date|timeuntil }}</em></strong>
+			<a href="{% url 'campaign_detail' campaign.slug %}" 
+				class="btn btn-default m-a-md" >More Info</a>
+		</p>
+	</div>
+
+	<h2 class='transparent hidden-sm hidden-xs'>{{campaign.charity.name}}. <small>{{campaign.name}}</small></h2>
+
+	<div class='controls transparent callout hidden-sm hidden-xs'>
+		<span class='info'><strong><em class='big'>R {{campaign.total_raised|floatformat:2|intcomma}}</em> raised so far. Campaign expires in <em class='big'>{{ campaign.expiry_date|timeuntil }}</em></strong></span>
 
 		<div class="pull-right" >
 			<a href="{% url 'campaign_detail' campaign.slug %}" 
-				class="btn btn-default" >More Info</a>
+				class="btn btn-default btn-lg" >More Info</a>
+			{% comment %}
 			<button 
-				class="btn btn-primary" 
+				class="btn btn-success btn-lg" 
 				data-toggle="collapse" href="#quick-donate" >Donate Now</button>
+			{% endcomment %}
 		</div>
 		<div class="clearfix"></div>
 	</div>
-	<div id="quick-donate" class='quick-donate collapse'  >
+	<div id="quick-donate" class='quick-donate in'  >
 		<div class="col-md-4">
-			<div class="panel panel-default">
-			  <div class="panel-heading">Quick Donate</div>
+			<div class="panel panel-default donate-panel">
+			  <div class="panel-heading"><h3 class="panel-title" ><em class='big'>Quick</em> Donate</h3></div>
 			  <div class="panel-body">
-			    <button class="btn btn-block" >R100</button>
-			    <button class="btn btn-block" >R500</button>
-			    <button class="btn btn-block" >R1000</button>
+			  	{% include 'campaign/components/payfast_button.html' with campaign=campaign amount='100' editable=False btn_classes='btn btn-block' btn_text='R100' %}
+			    {% include 'campaign/components/payfast_button.html' with campaign=campaign amount='500' editable=False btn_classes='btn btn-block' btn_text='R500' %}
+			    {% include 'campaign/components/payfast_button.html' with campaign=campaign amount='1000' editable=False btn_classes='btn-success btn-block' btn_text='R1000' %}
 			  </div>
 			</div>
 		</div>
 		<div class="col-md-4">
-			<div class="panel panel-default">
-			  <div class="panel-heading">Custom Donate</div>
+			<div class="panel panel-default donate-panel">
+			  <div class="panel-heading"><h3 class="panel-title" ><em class='big'>Custom</em> Donate</div>
 			  <div class="panel-body">
-			    <form>
-				  <div class="form-group">
-				    <label for="donation-amount">How much would you like to donate?</label>
-				    <input type="email" class="form-control" id="donation-amount" placeholder="Email">
-				  </div>	
-				  <button class="btn btn-block" >Donate</button>
-				</form>			  			    
+			      {% include 'campaign/components/payfast_button.html' with campaign=campaign amount='1000' editable=True btn_classes='btn-success btn-block' btn_text='Donate' %}
+				
 			  </div>
 			</div>
 		</div>
 		<div class="col-md-4">
-			<div class="panel panel-default">
-			  <div class="panel-heading">Buy 67 minutes</div>
+			<div class="panel panel-default donate-panel">
+			  <div class="panel-heading"><h3 class="panel-title" >Buy <em class='big'>67 minutes</em></h3></div>
 			  <div class="panel-body">
 			    <form>
 				  <div class="form-group">
@@ -61,7 +69,7 @@
 				    	<strong>You earn R 1234.00 in 67 mins</strong>
 				    </span>
 				  </div>	
-				  <button class="btn btn-block" >Donate R1234.00</button>
+				  <button class="btn btn-block btn-success" >Donate R1234.00</button>
 				</form>
 			  </div>
 			</div>
