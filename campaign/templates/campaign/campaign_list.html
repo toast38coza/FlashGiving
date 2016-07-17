@@ -10,13 +10,13 @@
 {% endcomment %}
 
 
-<div class="col-md-12 p-a-0 campaign-list" 
-	style="background:url('{{campaign.picture}}')">	
+<div class="col-md-12 p-a-0 campaign-list"
+	style="background:url('{{campaign.picture}}')">
 
 	<div class="visible-sm visible-xs" >
 		<p class="lead text-center transparent">
 			<strong><em class='big'>R {{campaign.total_raised|floatformat:2|intcomma}}</em> raised so far. Campaign expires in <em class='big'>{{ campaign.expiry_date|timeuntil }}</em></strong>
-			<a href="{% url 'campaign_detail' campaign.slug %}" 
+			<a href="{% url 'campaign_detail' campaign.slug %}"
 				class="btn btn-default m-a-md" >More Info</a>
 		</p>
 	</div>
@@ -24,14 +24,14 @@
 	<h2 class='transparent hidden-sm hidden-xs'>{{campaign.charity.name}}. <small>{{campaign.name}}</small></h2>
 
 	<div class='controls transparent callout hidden-sm hidden-xs'>
-		<span class='info'><strong><em class='big'>R {{campaign.total_raised|floatformat:2|intcomma}}</em> raised so far. Campaign expires in <em class='big'>{{ campaign.expiry_date|timeuntil }}</em></strong></span>
+		<span class='info'><strong><em class='big'>R {{campaign.total_raised|floatformat:2|intcomma}}</em> raised so far. Campaign expires in <em class='big'><span id="pageTimer_{{campaign.id}}">{% include 'campaign/components/countdown.html' with start_date='' end_date=campaign.expiry_date id=campaign.id %}</span></em></strong></span>
 
 		<div class="pull-right" >
-			<a href="{% url 'campaign_detail' campaign.slug %}" 
+			<a href="{% url 'campaign_detail' campaign.slug %}"
 				class="btn btn-default btn-lg" >More Info</a>
 			{% comment %}
-			<button 
-				class="btn btn-success btn-lg" 
+			<button
+				class="btn btn-success btn-lg"
 				data-toggle="collapse" href="#quick-donate" >Donate Now</button>
 			{% endcomment %}
 		</div>

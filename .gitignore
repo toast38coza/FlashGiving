@@ -89,4 +89,9 @@ ENV/
 .ropeproject
 py3.4
 db.sqlite3
+
+py3
+
+.DS_Store
+
 inventory
