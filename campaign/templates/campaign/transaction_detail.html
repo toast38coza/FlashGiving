@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+{% block 'content' %}
+<h3>You're Awesome. <small>Thank-you for your donation!</small></h3>
+<div class="well">	
+	<h4>Would you like to associate your contribution with a team? </h4>
+	
+	<div class="panel panel-default">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">
+	    	<button 
+	    		data-toggle="modal" data-target="#new-team-modal"
+	    		class='btn btn-xs pull-right btn-info' >Create a new Team</button>
+	    	Pick a team	    	
+	    </h3>
+	  </div>
+	  <div class="panel-body">
+	  	<div id="team-list" >
+		    {% for team in teams %}
+			    <a data-href="/api/transactions/{{transaction.pk}}/"
+			    	data-team="{{team.pk}}"
+			    	class='team label label-default'>{{team.name}}</a>
+			{% endfor %}
+		</div>
+		<a
+			data-toggle="modal" data-target="#new-team-modal" 
+			class='team label label-info'>Create a new Team</a>
+	  </div>
+	  <div class="panel-footer">
+	  	Recruit more donors for your team: <input 
+	  		id='promote-url'
+	  		data-base='http://{{SITE.domain}}{% url 'campaign_detail' campaign.slug %}'
+	  		value='http://{{SITE.domain}}{% url 'campaign_detail' campaign.slug %}' 
+	  		type='text' size=65 disabled />
+	  </div>
+	</div>
+		
+</div>
+
+{% endblock %}
+
+{% block "js" %}
+{{block.super}}
+<script>
+function setTeam(e) {
+	e.preventDefault();
+	var lnk = $(this);
+	$("#team-list .team")
+		.addClass('label-default')
+		.removeClass('label-success');
+	lnk
+		.addClass('label-success')
+		.removeClass('label-default');
+
+	var promoteTxt = $("#promote-url");
+	var url = promoteTxt.data('base') + '?team=' + lnk.data('team');
+	promoteTxt.val(url);
+
+	$.ajax({
+		url: lnk.data('href'),
+		type : 'PATCH',
+		data: {'team': lnk.data('team')}
+	});	
+
+}
+function teamCreated(data) {
+	var newTeam = $( ".team:first" ).clone();
+	newTeam.data('team', data.id)
+		.text(data.name)
+		.appendTo("#team-list");
+
+	$('#new-team-modal').modal('hide');
+}
+$(document).ready(function (){
+	$("#team-list").on('click', '.team', setTeam);
+})
+</script>
+<div id="new-team-modal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+  	<form 
+		action="/api/teams/" 
+		data-form="ajax"
+		data-loading="Creating team.."
+		data-onsuccess="teamCreated"
+		data-onfail=""
+		method="post" class='form' >
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Add a new Team</h4>
+      </div>
+      <div class="modal-body">
+
+		  {% csrf_token %}
+		  {% bootstrap_form team_form %}		  
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		<button 
+			data-loading-text="Creating team..."
+			type="submit" class="btn btn-primary">Create Team</button>  
+
+      </div>      
+    </div><!-- /.modal-content -->
+    </form><!-- /form -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+{% endblock %}
