@@ -27,18 +27,19 @@ class TeamViewSet(viewsets.ModelViewSet):
 class TransactionFilter(filters.FilterSet):
     class Meta:
         model = Transaction
-        fields = ['campaign', 'team']
+        fields = ['campaign', 'team', 'status']
 
 class TransactionSerializer(serializers.ModelSerializer):
     id = fields.CharField(read_only=True)
     amount = fields.IntegerField(read_only=True)
+    status = fields.CharField(read_only=True)
     class Meta:
         model = Transaction
         
         
 class TransactionViewSet(viewsets.ModelViewSet):
     """
-    Note: transaction_id and amount are read only
+    Note: transaction_id, amount and status are read only
     """
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer  

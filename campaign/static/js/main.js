@@ -20,22 +20,40 @@ var AjaxForm = {
 			});
 		});
 	},
-
-	test : function () {
-		console.log('test');
-	}
 };
 
-var AjaxLink = {
+var DonateBtn = {
 
-	init : function () {
-		$("[data-link]").on('click', function (el) {
-			el.preventDefault();
+	init: function () {
+		$(".donate-form").on('click', DonateBtn.saveTransaction);
+	},
+
+	saveTransaction: function (e) {
+
+		e.preventDefault();
+		var frm = $(this);
+		var btn = $("button[type='submit']");
+		var amount = $('[name="amount"]', frm).val()
+		
+		btn.button('loading');
+		var data = {
+			'campaign': frm.data('campaign')
+		};
+		
+		$.post('/api/transactions/', data, function (data){
+
+			var returnUrl = $('[name="return_url"]', frm);
+			var url = returnUrl.val() + data.id + '&amt=' + amount
+			returnUrl.val(url);
+			frm.submit();
 
 		});
+
 	}
+
 };
 
 $(document).ready(function (){
 	AjaxForm.init();
+	DonateBtn.init();
 });

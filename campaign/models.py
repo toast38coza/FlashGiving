@@ -108,7 +108,7 @@ class Team(models.Model):
     def __str__(self):              # __unicode__ on Python 2
         return self.name
 
-
+transaction_statuses = [('started', 'Started'), ('complete', 'Complete')]
 class Transaction(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -116,6 +116,7 @@ class Transaction(models.Model):
     campaign = models.ForeignKey(Campaign)
     team = models.ForeignKey(Team, blank=True, null=True)
     amount = models.PositiveIntegerField(default=0)
+    status = models.CharField(max_length=30, choices=transaction_statuses, default='started')
 
 
 
