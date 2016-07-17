@@ -1,20 +1,21 @@
 version: "2"
 
 services:
-  memcached:
+  db:
     restart: on-failure:10
-    image: memcached:latest
-    command: memcached -m 1000
-    ports: 
-      - "11211:11211"
+    image: postgres:9.4
+    volumes:
+      - "db-data:/var/lib/postgresql/data"
   web:
     restart: on-failure:10
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn flashgiving.wsgi:application -b :8000 --reload
     volumes:
       - .:/code
     ports:
-      - "8000:8000"
+      - "${APP_PORT}:8000"
     links:
-      - memcached
+      - db
 
+volumes:
+  db-data:
