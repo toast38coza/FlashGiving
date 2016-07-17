@@ -93,5 +93,6 @@ db.sqlite3
 py3
 
 .DS_Store
+campaign/static/js/.DS_Store
 
 inventory
