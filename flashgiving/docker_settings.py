@@ -10,3 +10,4 @@ DATABASES = {
 }
 ALLOWED_HOSTS = ['.flashgive.co.za']
 DEBUG = False
+PAYFAST_URL = "https://www.payfast.co.za/eng/process"

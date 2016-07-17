@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='campaign',
             name='created',
-            field=models.DateTimeField(default=0),
+            field=models.DateTimeField(default=datetime.datetime.now()),
         ),
         migrations.AlterField(
             model_name='campaign',

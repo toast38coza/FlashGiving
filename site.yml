@@ -1,7 +1,6 @@
-hosts: flashgive
+- hosts: all
 
-tasks:
-
+  tasks:
   - name: update apt cache 
     apt: update_cache=yes cache_valid_time=3600
 
@@ -14,7 +13,7 @@ tasks:
   - name: install docker compose
     pip:
       name: docker-compose
-      state: installed
+      state: present
 
   - name: Create directories
     file:
@@ -25,6 +24,7 @@ tasks:
     git:
       repo: https://github.com/toast38coza/FlashGiving.git
       dest: /var/www/FlashGiving
+      force: yes
 
   - name: Run docker commands
     shell: "docker-compose run --rm web {{item}}"
