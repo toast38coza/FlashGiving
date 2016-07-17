@@ -103,7 +103,7 @@ class Campaign(models.Model):
         ]
 
         return [ {"team__name": item.get('team__name'), \
-                  'percent': (item.get('amount')/float(total) * 100), \
+                  'percent': (item.get('amount')/total * 100), \
                   'color': colors[index]
                   } for index, item in enumerate(amounts) ]
 
@@ -164,7 +164,7 @@ class Transaction(models.Model):
     
     campaign = models.ForeignKey(Campaign)
     team = models.ForeignKey(Team, blank=True, null=True)
-    amount = models.PositiveIntegerField(default=0)
+    amount = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     status = models.CharField(max_length=30, choices=transaction_statuses, default='started')
 
 

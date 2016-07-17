@@ -15,8 +15,8 @@ custom:
 <input type="hidden" name="item_name" value="FlashGive: {{campaign.name}}">
 {% if editable %}
 <div class="form-group">
-	<label for="donation-amount">How much would you like to donate?</label>
-	<input type="text" class="form-control" name="amount" value="{{amount}}" >	
+	<label for="donation-amount">{{btn_amount_label|default:'How much would you like to donate?' }}</label>
+	<input type="number" class="form-control" name="amount" value="{{amount}}" >	
 </div>
 {% else %}
 <input type="hidden" name="amount" value="{{amount}}">

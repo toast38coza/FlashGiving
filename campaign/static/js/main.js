@@ -54,12 +54,6 @@ var DonateBtn = {
 
 };
 
-$(document).ready(function (){
-	AjaxForm.init();
-	DonateBtn.init();
-});
-
-
 function calculate67MinSalary (form, id) {
 		var salary = form.monthlySalary.value;
 		var WORKING_DAYS = 20;
@@ -67,8 +61,26 @@ function calculate67MinSalary (form, id) {
 		var min67Salary = ((salary / (WORKING_DAYS * HOURS_IN_A_DAY * 60)) * 67).toFixed(2);
 		var el = document.getElementById('salary_to_donate_'+id);
 		var btnEl = document.getElementById('btn_txt_salary_donate_'+id);
+		var btn = $("#salaryDonation .btn-success");
 		if (min67Salary > 0) {
 			el.innerHTML = min67Salary;
 			btnEl.innerHTML = min67Salary;
+			$("#salaryDonation [name='amount']").val(min67Salary);
+			btn.removeAttr('disabled');
+		} 
+		if (min67Salary > 10) {
+			btn.removeAttr('disabled');
+		} else {
+			btn.attr('disabled', 'disabled')
 		}
 }
+
+$(document).ready(function (){
+	AjaxForm.init();
+	DonateBtn.init();	
+
+	calculate67MinSalary(document.getElementById('salaryDonation'), 1);
+});
+
+
+
