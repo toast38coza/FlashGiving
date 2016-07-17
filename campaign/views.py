@@ -24,6 +24,7 @@ class CampaignDetail(DetailView):
             transaction = Transaction.objects.get(id=transaction_id)
             transaction.status = 'complete'
             transaction.amount = amount
+            transaction.team_id = self.request.session.get('team', 1)
             transaction.save()
 
         donations = Transaction.objects.filter(campaign=campaign.id, status='complete')

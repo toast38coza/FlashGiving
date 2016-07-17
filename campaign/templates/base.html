@@ -41,10 +41,16 @@
           <img src="{% static "images/logo.png" %}" title="FlashGive" />
           </a>
 
+        </div>        
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          
+            <ul class="nav navbar-nav navbar-right">
+              <li class='label label-warning m-t-md m-r-md'>You are in the <em class='big'>{{TEAM.name}}</em></li>
+            </ul>
+          
         </div>
-      </div>
-    </nav>
-
+      </div>      
+    </nav>    
     <h1 class='page-header'>{% block "page_header" %}{% endblock %}</h1>
     {% block "page_extra" %}{% endblock %}
 

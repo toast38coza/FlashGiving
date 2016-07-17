@@ -13,6 +13,7 @@
 	<h1>You're Awesome. <small>Thank-you for your donation</small></h1>
 </div>
 {% endif %}
+
 {% endblock %}
 
 {% block 'content' %}
@@ -20,19 +21,22 @@
 	<p class="lead text-center">
 		So far we've raised <em class='big'>R{{total|floatformat:2|intcomma}}</em>
 		since this campaign started <em class='big'>{{campaign.start_date|timesince}}</em> ago.<br/>
-		<em class='big'>{{ campaign.expiry_date|timeuntil }}</em> remaining
+		<em class='big'>{{ campaign.expiry_date|timeuntil }}</em> remaining<br/>
+		{{ campaign.score_summary }} (you're in the {{TEAM.name}})
 	</p>
+
 	<div class="hr-divider">
 	  <h3 class="hr-divider-content hr-divider-heading">
 	    Help Promote
 	  </h3>
 	</div>
 	<p class="lead text-center m-b-lg" >
-		<small>
+		<small>			
 			Help us promote this great cause by sharing this link with your friends:<br/>
 			<a href = "http://{{SITE.domain}}{% url 'campaign_detail' campaign.slug %}">
-				http://{{SITE.domain}}{% url 'campaign_detail' campaign.slug %}
-			</a>
+				http://{{SITE.domain}}{% url 'campaign_detail' campaign.slug %}?team={{TEAM.pk}}
+			</a><br/>
+			(and also help the <em class='big'>{{TEAM.name}}</em> to raise the most!)
 		</small>
 	</p>
 
@@ -50,16 +54,25 @@
 		</div>
 		<div class='col-md-4'>
 
-			<div class="statcard p-l-md p-r-md text-center">
-				<button 
-					data-toggle='collapse' data-target='#quick-donate'
-					class='btn btn-success btn-block'>Donate</button>
-			</div>
-
 			<div class="statcard p-a-md text-center">
 			  <h3 class="statcard-number">
 			  	{{ campaign.expiry_date|timeuntil }}</h3>
 			  <span class="statcard-desc">Time Remaining</span>
+			</div>
+
+			<div class="statcard p-l-md p-r-md m-b-md text-center">
+				<button 
+					data-toggle='collapse' data-target='#quick-donate'
+					class='btn btn-success btn-block'>Donate</button>
+			</div>
+			
+			<div >
+			  <canvas
+			    class="ex-graph"
+			    data-chart="doughnut"
+			    data-value="[{% for score in campaign.scores_by_team_as_percent %}{ value: {{score.percent}}, color: '{{score.color}}', label: '{{score.team__name}}' }{% if not forloop.last %},{% endif %}{% endfor%} ]"
+			    data-segment-stroke-color="#252830">
+			  </canvas>
 			</div>
 
 			<div class="statcard p-a-md text-center">
@@ -85,6 +98,6 @@
 
 {% block "js" %}
 {{block.super}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js" ></script>
+<script src="{% static "js/chart.js" %}" ></script>
 <script src="{% static "js/toolkit.min.js" %}" ></script>
 {% endblock %}

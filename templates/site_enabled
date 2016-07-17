@@ -1,0 +1,17 @@
+server {
+  listen   80;
+  server_name flashgive.co.za ;
+  
+  location / {
+    proxy_set_header Host $host;
+    client_max_body_size 200M;            
+    proxy_pass  http://0.0.0.0:8000;
+
+  }
+
+  location /static/ {
+    alias  /var/www/FlashGiving/static/;
+
+  }
+  
+}
