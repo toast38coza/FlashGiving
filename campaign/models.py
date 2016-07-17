@@ -88,7 +88,7 @@ class Campaign(models.Model):
         
         return self.complete_transactions.values('team__name') \
                         .annotate(amount = Sum('amount')) \
-                        .order_by('team')
+                        .order_by('-amount')
 
     @property
     def scores_by_team_as_percent(self):
@@ -106,6 +106,17 @@ class Campaign(models.Model):
                   'percent': (item.get('amount')/float(total) * 100), \
                   'color': colors[index]
                   } for index, item in enumerate(amounts) ]
+
+    @property
+    def score_summary(self):
+        scores = self.scores_by_team
+        if len(scores)>1:
+            first = scores[0]
+            second = scores[1]
+            diff = first.get('amount', 0) - second.get('amount', 0)
+            return "{} leads by R {}" . format (first.get('team__name'), diff)
+        else:
+            return False
 
     def get_absolute_url(self):
         return reverse('campaign_detail', args=[self.pk])

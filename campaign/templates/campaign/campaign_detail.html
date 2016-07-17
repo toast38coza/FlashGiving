@@ -21,21 +21,22 @@
 	<p class="lead text-center">
 		So far we've raised <em class='big'>R{{total|floatformat:2|intcomma}}</em>
 		since this campaign started <em class='big'>{{campaign.start_date|timesince}}</em> ago.<br/>
-		<em class='big'>{{ campaign.expiry_date|timeuntil }}</em> remaining
+		<em class='big'>{{ campaign.expiry_date|timeuntil }}</em> remaining<br/>
+		{{ campaign.score_summary }} (you're in the {{TEAM.name}})
 	</p>
 
-	
 	<div class="hr-divider">
 	  <h3 class="hr-divider-content hr-divider-heading">
 	    Help Promote
 	  </h3>
 	</div>
 	<p class="lead text-center m-b-lg" >
-		<small>
+		<small>			
 			Help us promote this great cause by sharing this link with your friends:<br/>
 			<a href = "http://{{SITE.domain}}{% url 'campaign_detail' campaign.slug %}">
-				http://{{SITE.domain}}{% url 'campaign_detail' campaign.slug %}
-			</a>
+				http://{{SITE.domain}}{% url 'campaign_detail' campaign.slug %}?team={{TEAM.pk}}
+			</a><br/>
+			(and also help the <em class='big'>{{TEAM.name}}</em> to raise the most!)
 		</small>
 	</p>
 
