@@ -43,6 +43,13 @@ h1.page-header{
 	margin-bottom: 0px;
 }
 
+.donate-panel {
+	height: 215px;
+}
+.donate-panel button{
+	margin-bottom:10px;
+}
+
 .big {font-size:larger;}
 
 * {
