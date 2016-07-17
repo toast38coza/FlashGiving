@@ -10,7 +10,7 @@ class CharityAdmin(admin.ModelAdmin):
 	inlines = [GatewayPropertyInline]
 
 class CampaignAdmin(admin.ModelAdmin):
-	list_display = ('name', 'description', 'raised')
+	list_display = ('name', 'description')
 
 class TeamAdmin(admin.ModelAdmin):
 	list_display = ('name', 'description')

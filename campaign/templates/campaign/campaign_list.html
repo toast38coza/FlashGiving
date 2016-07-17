@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load humanize %}
 {% block "page_header" %}Currently active campaigns{% endblock %}
 
 {% block 'content' %}
@@ -13,15 +13,17 @@
 	style="background:url('http://www.gatesfoundation.org/~/media/GFO/Home/banner-1.png')">	
 	<h2 class='transparent'>{{campaign.charity.name}}. <small>{{campaign.name}}</small></h2>
 
-	<div class='controls transparent'>
-		<span class='info'>R 100 000 raised so far</span>
+	<div class='controls transparent callout'>
+		<span class='info'><strong><em class='big'>R {{campaign.total_raised|floatformat:2|intcomma}}</em> raised so far. Campaign expires in <em class='big'>{{ campaign.expiry_date|timeuntil }}</em></strong></span>
 
 		<div class="pull-right" >
 			<a href="{% url 'campaign_detail' campaign.slug %}" 
 				class="btn btn-default btn-lg" >More Info</a>
+			{% comment %}
 			<button 
 				class="btn btn-success btn-lg" 
 				data-toggle="collapse" href="#quick-donate" >Donate Now</button>
+			{% endcomment %}
 		</div>
 		<div class="clearfix"></div>
 	</div>
@@ -40,7 +42,7 @@
 			<div class="panel panel-default">
 			  <div class="panel-heading"><h3 class="panel-title" ><em class='big'>Custom</em> Donate</div>
 			  <div class="panel-body">
-			      {% include 'campaign/components/payfast_button.html' with campaign=campaign amount='1000' editable=True btn_classes='btn-success btn-block' btn_text='R1000' %}
+			      {% include 'campaign/components/payfast_button.html' with campaign=campaign amount='1000' editable=True btn_classes='btn-success btn-block' btn_text='Donate' %}
 				
 			  </div>
 			</div>

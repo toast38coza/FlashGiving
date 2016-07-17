@@ -4,7 +4,7 @@ from django.utils.text import slugify
 from django.conf import settings
 from autoslug import AutoSlugField
 from django.core.urlresolvers import reverse
-
+from django.db.models import Sum, Max
 import json, uuid
 
 class Charity(models.Model):
@@ -58,7 +58,6 @@ class Campaign(models.Model):
     video = models.URLField(blank=True, null=True)
 
     description = models.TextField( blank=True, null=True)
-    raised = models.IntegerField(default=0)
     status = models.CharField(max_length=30, choices=CAMPAIGN_STATES, default='pending')
 
     start_date = models.DateTimeField(default=timezone.now)
@@ -72,6 +71,12 @@ class Campaign(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def total_raised(self):
+        # todo: cache
+        result = Transaction.objects.filter(campaign=self, status='complete').aggregate(Sum('amount'))
+        return result.get('amount__sum', 0)
 
     def get_absolute_url(self):
         return reverse('campaign_detail', args=[self.pk])

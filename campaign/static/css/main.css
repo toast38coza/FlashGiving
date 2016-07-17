@@ -1,6 +1,10 @@
 .transparent{
 	background:rgba(255,255,255,0.5);	
 }
+.transparent.callout{	
+	background:rgba(252,138,37,0.5);
+	color:white;	
+}
 
 .campaign-list{
 	padding:0px;
@@ -36,7 +40,13 @@ h1.page-header{
 	font-weight: bold;
 	font-size:large;
 	padding-top:25px;
+	margin-bottom: 0px;
 }
 
-
 .big {font-size:larger;}
+
+* {
+  -webkit-border-radius: 0 !important;
+     -moz-border-radius: 0 !important;
+          border-radius: 0 !important;
+}
