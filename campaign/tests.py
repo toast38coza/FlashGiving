@@ -1,4 +1,5 @@
 from django.test import TestCase, Client
+
 from .models import *
 
 class HomePageTestCase(TestCase):
@@ -15,7 +16,6 @@ class CampaignPageTestCase(TestCase):
 
 	def setUp(self):
 		self.c = Client()
-
 
 	def test_get_is_200(self):
 
@@ -44,6 +44,12 @@ class ModelsTestCase(TestCase):
 
 	def test_campaign_quick_create(self):
 		Campaign.quick_create()
+
+	def test_campaign_get_absolute_url(self):
+		campaign = Campaign()
+		campaign.pk = 123
+		url = campaign.get_absolute_url()
+		assert url == '/123/'
 
 
 

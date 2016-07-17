@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.utils.text import slugify
 from django.conf import settings
 from autoslug import AutoSlugField
+from django.core.urlresolvers import reverse
 
 import json, uuid
 
@@ -67,6 +68,9 @@ class Campaign(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('campaign_detail', args=[self.pk])
 
     def get_active(self):
         return Campaign.objects.filter(status='active')

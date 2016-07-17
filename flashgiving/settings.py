@@ -40,7 +40,8 @@ INSTALLED_APPS = [
 
     'campaign',
 
-    'rest_framework'
+    'rest_framework',
+    'bootstrap3',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -126,6 +127,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
 
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
+}
 
 GATEWAY_BACKENDS = [('payfast','PayFast'),]
 GATEWAYS = {
