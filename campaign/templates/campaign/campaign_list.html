@@ -38,6 +38,15 @@
 		<div class="clearfix"></div>
 	</div>
 	{% include 'campaign/components/donate.html' %}
+	<div style="background:#c1c1c1;" class="p-a-md" >
+		<div class="hr-divider">
+		  <h3 class="hr-divider-content hr-divider-heading">
+		    {{campaign.charity.name}}
+		  </h3>
+		</div>
+
+		<div class='lead m-t-md' ><small>{{campaign.description}}</small></div>
+	</div>
 </div>
 {% endfor %}
 

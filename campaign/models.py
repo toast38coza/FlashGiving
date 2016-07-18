@@ -98,8 +98,8 @@ class Campaign(models.Model):
 
         colors = [
             '#d44950', # red
-            '#1bc98e', # blue
-            '#1ca8dd', # green
+            '#1ca8dd', # blue
+            '#1bc98e', # green
         ]
 
         return [ {"team__name": item.get('team__name'), \
