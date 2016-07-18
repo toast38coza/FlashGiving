@@ -55,9 +55,8 @@
 		<div class='col-md-4'>
 
 			<div class="statcard p-a-md text-center">
-			  <h3 class="statcard-number">
-			  	{{ campaign.expiry_date|timeuntil }}</h3>
-			  <span class="statcard-desc">Time Remaining</span>
+			  <h3 class="statcard-number">R{{total|floatformat:2|intcomma}}</h3>
+			  <span class="statcard-desc">Total Donated</span>
 			</div>
 
 			<div class="statcard p-l-md p-r-md m-b-md text-center">
@@ -78,10 +77,7 @@
 			  </canvas>
 			</div>
 
-			<div class="statcard p-a-md text-center">
-			  <h3 class="statcard-number">R{{total|floatformat:2|intcomma}}</h3>
-			  <span class="statcard-desc">Total Donated</span>
-			</div>
+
 
 			<div class="statcard p-a-md text-center">
 			  <h3 class="statcard-number">{{donations|length}}</h3>
